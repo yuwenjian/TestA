@@ -22,7 +22,7 @@ jobs:
 
         # Commit the updated sdkVersions.ts file
         git init
-        git remote add https://$GITHUB_TOKEN@github.com/yuwenjian/TestA.git HEAD:main
+        git remote add https://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@github.com/yuwenjian/TestA.git HEAD:main
         # git add .
         # git commit -m "Update unity version"
         # git push
