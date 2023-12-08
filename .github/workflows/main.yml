@@ -2,7 +2,7 @@ name: Update Constant from API
 
 on:
   schedule:
-    - cron: '4 12 * * *'
+    - cron: '7 12 * * *'
 
 jobs:
   update-constant:
