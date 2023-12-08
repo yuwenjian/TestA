@@ -2,7 +2,7 @@ name: Update Constant from API
 
 on:
   schedule:
-    - cron: '0 */1 * * * ?'  # 设置每天UTC时间的零点触发
+    - cron: '*/5 * * * *'
 
 jobs:
   update-constant:
