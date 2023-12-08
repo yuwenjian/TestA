@@ -1,12 +1,11 @@
-name: CI
+name: Update Constant from API
 
 on:
-  push:
-    branches:
-      - main  # 设置触发条件，这里是在 main 分支推送时触发
+  schedule:
+    - cron: '0 */1 * * * ?'  # 设置每天UTC时间的零点触发
 
 jobs:
-  build:
+  update-constant:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,5 +20,17 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run tests
-      run: npm test
+    - name: Update Constant from API
+      run: |
+        API_URL="https://taptap.leanapp.cn/releases/find/version"
+        NEW_CONSTANT_VALUE=$(curl -s $API_URL)
+  
+        # Assuming your constant is stored in a file like constants.js
+        echo "export const API_VERSION = '$NEW_CONSTANT_VALUE';" > src/constants.js
+
+        # Commit the updated constant file
+        git config user.name "yuwenjian"
+        git config user.email "740225978@qq.com"
+        git add src/constants.js
+        git commit -m "Update API version constant [skip ci]"
+        git push
