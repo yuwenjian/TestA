@@ -47,8 +47,8 @@ jobs:
         export default sdkVersions;' > sdkVersions.ts
 
         # Commit the updated sdkVersions.ts file
-        git config user.name "yuwenjian"
-        git config user.email "740225978@qq.com"
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
         git add sdkVersions.ts
-        git commit -m "Update Unity version in sdkVersions.ts [skip ci]"
+        git commit -m "Update Unity version in sdkVersions.ts"
         git push
