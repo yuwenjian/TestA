@@ -21,7 +21,6 @@ jobs:
         sed -i 's/unity: ".*",/unity: "'$UNITY_VERSION'",/' sdkVersions.ts
 
         # Commit the updated sdkVersions.ts file
-        git init
         git config --global user.email "740225978@qq.com"
         git config --global user.name "yuwenjian"
         git add .
