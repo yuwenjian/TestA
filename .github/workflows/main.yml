@@ -1,36 +1,53 @@
-name: Update Constant from API
+name: Update SDK Versions
 
 on:
   schedule:
-    - cron: '0 0 * * *'
-    
+    - cron: '*/5 * * * *'  # 设置每隔5分钟触发
+
 jobs:
-  update-constant:
+  update-sdk-versions:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '14'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Update Constant from API
+    - name: Update Unity Version
       run: |
-        API_URL="https://taptap.leanapp.cn/releases/find/version"
-        NEW_CONSTANT_VALUE=$(curl -s $API_URL)
-  
-        # Assuming your constant is stored in a file like constants.js
-        echo "export const API_VERSION = '$NEW_CONSTANT_VALUE';" > src/constants.js
+        echo 'const sdkVersions = {
+          taptap: {
+            unity: "3.289.0",
+            android: "3.24.1",
+            ios: "3.23.1",
+            unreal: "3.25.1",
+            rtc: "1.1.0",
+            adr: "1.1.5"
+          },
+          leancloud: {
+            objc: "13.9.0",
+            swift: "17.10.1",
+            js: {
+              storage: "4.13.2",
+              realtime: "5.0.0-rc.7",
+            },
+            java: "8.2.19",
+            csharp: "2.3.0",
+            flutter: {
+              storage: "0.7.10",
+              realtime: "1.0.1",
+            }
+          },
+          tapadn: {
+            unity: "3.16.3.23",
+            android: "3.16.3.23",
+          }
+        };
 
-        # Commit the updated constant file
-        git config user.name "yuwenjian"
-        git config user.email "740225978@qq.com"
-        git add src/constants.js
-        git commit -m "Update API version constant [skip ci]"
+        export default sdkVersions;' > src/sdkVersions.ts
+
+        # Commit the updated sdkVersions.ts file
+        git config user.name "your-username"
+        git config user.email "your-email@example.com"
+        git add src/sdkVersions.ts
+        git commit -m "Update Unity version in sdkVersions.ts [skip ci]"
         git push
