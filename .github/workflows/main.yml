@@ -21,8 +21,8 @@ jobs:
         sed -i 's/unity: ".*",/unity: "'$UNITY_VERSION'",/' sdkVersions.ts
 
         # Commit the updated sdkVersions.ts file
-        # git config user.name "GitHub Actions"
-        # git config user.email "actions@github.com"
-        # git add sdkVersions.ts
-        # git commit -m "Update unity version to $UNITY_VERSION [skip ci]"
+        git init
+        git remote add https://$GITHUB_TOKEN@github.com/yuwenjian/TestA.git HEAD:main
+        # git add .
+        # git commit -m "Update unity version"
         # git push
