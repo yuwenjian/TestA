@@ -49,6 +49,6 @@ jobs:
         # Commit the updated sdkVersions.ts file
         git config user.name "your-username"
         git config user.email "your-email@example.com"
-        git add src/sdkVersions.ts
+        git add sdkVersions.ts
         git commit -m "Update Unity version in sdkVersions.ts [skip ci]"
         git push
