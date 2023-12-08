@@ -1,8 +1,9 @@
 name: Update SDK Versions
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'  # 设置每隔5分钟触发
+  push:
+    branches:
+      - main  # 可以根据你的主分支名修改
 
 jobs:
   update-sdk-versions:
