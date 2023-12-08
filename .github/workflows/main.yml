@@ -49,6 +49,8 @@ jobs:
         # Commit the updated sdkVersions.ts file
         git config --global user.email "740225978@qq.com"
         git config --global user.name "yuwenjian"
-        git add sdkVersions.ts
-        git commit -m "Update Unity version in sdkVersions.ts"
-        git push
+        git init
+        git add -A
+        git commit -m "first commit"
+        git remote add origin git@github.com:yuwenjian/TestA.git
+        git push -u origin main
