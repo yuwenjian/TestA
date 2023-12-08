@@ -44,7 +44,7 @@ jobs:
           }
         };
 
-        export default sdkVersions;' > src/sdkVersions.ts
+        export default sdkVersions;' > sdkVersions.ts
 
         # Commit the updated sdkVersions.ts file
         git config user.name "your-username"
