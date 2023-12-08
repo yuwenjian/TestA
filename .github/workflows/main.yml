@@ -45,11 +45,3 @@ jobs:
         };
 
         export default sdkVersions;' > sdkVersions.ts
-
-        # Commit the updated sdkVersions.ts file
-        git config --global user.email "740225978@qq.com"
-        git config --global user.name "yuwenjian"
-        git init
-        git add -A
-        git commit -m "first commit"
-        git push -u origin main
