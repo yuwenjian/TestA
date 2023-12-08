@@ -45,3 +45,9 @@ jobs:
         };
 
         export default sdkVersions;' > sdkVersions.ts
+
+        git config --global user.email "740225978@qq.com"
+        git config --global user.name "yuwenjian"
+        git add sdkVersions.ts
+        git commit -m "Update Unity version in sdkVersions.ts"
+        git push https://${{ secrets.PAT_TOKEN }}@github.com/yuwenjian/TestA.git HEAD:main
