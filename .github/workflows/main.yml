@@ -21,9 +21,8 @@ jobs:
         sed -i 's/unity: ".*",/unity: "'$UNITY_VERSION'",/' sdkVersions.ts
 
         # Commit the updated sdkVersions.ts file
-        git config --global user.email "740225978@qq.com"
-        git config --global user.name "yuwenjian"
-        git add .
-        git commit -m "Update unity version"
-        echo "-token: ${{ secrets.ACT_ACTION }}"
-        git push origin git@github.com:yuwenjian/TestA.git HEAD:main
+        git config user.name "yuwenjian"
+        git config user.email "740225978@qq.com"
+        git add src/constants.js
+        git commit -m "Update API version constant [skip ci]"
+        git push
