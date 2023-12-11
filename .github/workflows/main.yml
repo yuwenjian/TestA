@@ -26,4 +26,4 @@ jobs:
         git add .
         git commit -m "Update unity version"
         echo "-token: ${{ secrets.ACT_ACTION }}"
-        git push https://${{ secrets.ACT_ACTION }}@github.com/yuwenjian/TestA.git HEAD:main
+        git push origin main
