@@ -19,10 +19,6 @@ jobs:
 
         # Update Unity version in sdkVersions.ts
         sed -i 's/unity: ".*",/unity: "'$UNITY_VERSION'",/' sdkVersions.ts
-
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
         git config --global user.email "740225978@qq.com"
         git config --global user.name "yuwenjian"
         git remote set-url origin git@github.com:yuwenjian/TestA.git
