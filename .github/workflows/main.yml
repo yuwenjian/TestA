@@ -25,4 +25,4 @@ jobs:
         git config --global user.name "yuwenjian"
         git add .
         git commit -m "Update API version constant [skip ci]"
-        git push https://${{ secrets.TOKEN_PAT }}@github.com/yuwenjian/TestA.git HEAD:main
+        git push origin main
