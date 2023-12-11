@@ -25,7 +25,4 @@ jobs:
         git config --global user.name "yuwenjian"
         git add .
         git commit -m "Update unity version"
-        git push https://${{secrets.GITHUB_TOKEN}}@github.com/yuwenjian/TestA.git HEAD:main
-
-
-        
+        git push https://${{secrets.ACT_ACTION}}@github.com/yuwenjian/TestA.git HEAD:main
