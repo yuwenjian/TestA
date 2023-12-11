@@ -23,6 +23,6 @@ jobs:
         # Commit the updated sdkVersions.ts file
         git config user.name "yuwenjian"
         git config user.email "740225978@qq.com"
-        git add src/constants.js
+        git add .
         git commit -m "Update API version constant [skip ci]"
         git push
