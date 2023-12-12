@@ -1,28 +1,45 @@
-name: Update Unity Version
+name: Update SDK Versions
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
-  update-unity-version:
+  update-sdk-versions:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
-        token: ${{ secrets.TOKEN_PAT }}      
+        token: ${{ secrets.TOKEN_PAT }}     
 
-    - name: Update Unity Version
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Update SDK Versions
       run: |
-        UNITY_VERSION="1111111"
+        API_URL="https://taptap.leanapp.cn/releases/find/version"
+        RESPONSE=$(curl -s $API_URL)
+        
+        UNITY_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "unity") | .version')
+        IOS_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "ios") | .version')
+        ANDROID_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "android") | .version')
+        UNREAL_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "ue4") | .version')
+        
+        sed -i "s/unity: \"[^\"]*\"/unity: \"$UNITY_VERSION\"/" sdkVersions.ts
+        sed -i "s/ios: \"[^\"]*\"/ios: \"$IOS_VERSION\"/" sdkVersions.ts
+        sed -i "s/android: \"[^\"]*\"/android: \"$ANDROID_VERSION\"/" sdkVersions.ts
+        sed -i "s/unreal: \"[^\"]*\"/unreal: \"$UNREAL_VERSION\"/" sdkVersions.ts
 
-        # Update Unity version in sdkVersions.ts
-        sed -i 's/unity: ".*",/unity: "'$UNITY_VERSION'",/' sdkVersions.ts
         git config --global user.email "740225978@qq.com"
         git config --global user.name "yuwenjian"
-        git add .
-        git commit -m "Update API version constant [skip ci]"
+        git add -A
+        git commit -m "Update SDK Versions [skip ci]"
         git push origin main
