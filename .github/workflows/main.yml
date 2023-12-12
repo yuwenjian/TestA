@@ -21,7 +21,8 @@ jobs:
         sed -i 's/unity: ".*",/unity: "'$UNITY_VERSION'",/' sdkVersions.ts
         git config --global user.email "740225978@qq.com"
         git config --global user.name "yuwenjian"
-        git remote origin git@github.com:yuwenjian/TestA.git
+        git init
+        git remote add origin git@github.com:yuwenjian/TestA.git
         git add .
         git commit -m "Update API version constant [skip ci]"
         git push origin main
