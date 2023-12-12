@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.TOKEN_PAT }}      
 
     - name: Update Unity Version
       run: |
