@@ -32,12 +32,12 @@ jobs:
         IOS_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "ios") | .version')
         ANDROID_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "android") | .version')
         UNREAL_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "ue4") | .version')
-        
+
         sed -i "s/taptap: {[^}]*unity: \"[^\"]*\"/taptap: { unity: \"$UNITY_VERSION\"/" sdkVersions.ts
         sed -i "s/taptap: {[^}]*ios: \"[^\"]*\"/taptap: { ios: \"$IOS_VERSION\"/" sdkVersions.ts
         sed -i "s/taptap: {[^}]*android: \"[^\"]*\"/taptap: { android: \"$ANDROID_VERSION\"/" sdkVersions.ts
         sed -i "s/taptap: {[^}]*unreal: \"[^\"]*\"/taptap: { unreal: \"$UNREAL_VERSION\"/" sdkVersions.ts
-
+        
         cat sdkVersions.ts
 
         git config --global user.email "740225978@qq.com"
