@@ -20,26 +20,36 @@ jobs:
         # Your CI script commands here
         # For example, make the API request and extract values
         SDK_DATA=$(curl -s https://taptap.leanapp.cn/releases/find/version)
+        
+        # Print the API response for debugging
+        echo "API Response:"
+        echo "$SDK_DATA"
+
         TAPTAP_UNITY=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "unity") | .version')
         TAPTAP_IOS=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "ios") | .version')
         TAPTAP_UE4=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "ue4") | .version')
         TAPTAP_ANDROID=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "android") | .version')
 
-        echo "$TAPTAP_UNITY"
-        echo "$TAPTAP_IOS"
-        echo "$TAPTAP_UE4"
-        echo "$TAPTAP_ANDROID"
+        # Check if the values are different before updating and committing
+        if [ "$TAPTAP_UNITY" != "$(grep -oP 'const taptapUnity = "\K[^"]*' sdkVersions.ts)" ] || \
+          [ "$TAPTAP_IOS" != "$(grep -oP 'const taptapIos = "\K[^"]*' sdkVersions.ts)" ] || \
+          [ "$TAPTAP_UE4" != "$(grep -oP 'const taptapUnreal = "\K[^"]*' sdkVersions.ts)" ] || \
+          [ "$TAPTAP_ANDROID" != "$(grep -oP 'const taptapAndroid = "\K[^"]*' sdkVersions.ts)" ]; then
+          
+          # Update the SDK versions in your file
+          sed -i "s/const taptapUnity = \".*\"/const taptapUnity = \"$TAPTAP_UNITY\"/" sdkVersions.ts
+          sed -i "s/const taptapIos = \".*\"/const taptapIos = \"$TAPTAP_IOS\"/" sdkVersions.ts
+          sed -i "s/const taptapUnreal = \".*\"/const taptapUnreal = \"$TAPTAP_UE4\"/" sdkVersions.ts
+          sed -i "s/const taptapAndroid = \".*\"/const taptapAndroid = \"$TAPTAP_ANDROID\"/" sdkVersions.ts
+          
+          echo "SDK 版本有更新"
 
-        # Update the SDK versions in your file
-        sed -i "s/const taptapUnity = \".*\"/const taptapUnity = \"$TAPTAP_UNITY\"/" sdkVersions.ts
-        sed -i "s/const taptapIos = \".*\"/const taptapIos = \"$TAPTAP_IOS\"/" sdkVersions.ts
-        sed -i "s/const taptapUnreal = \".*\"/const taptapUnreal = \"$TAPTAP_UE4\"/" sdkVersions.ts
-        sed -i "s/const taptapAndroid = \".*\"/const taptapAndroid = \"$TAPTAP_ANDROID\"/" sdkVersions.ts
-
-    - name: Commit and Push Changes
-      run: |
-        git config --global user.email "740225978@qq.com"
-        git config --global user.name "yuwenjian"
-        git add sdkVersions.ts
-        git commit -m "Update SDK Versions [skip ci]"
-        git push
+          # Commit and push changes
+          git config --global user.email "740225978@qq.com"
+          git config --global user.name "yuwenjian"  
+          git add sdkVersions.ts
+          git commit -m "Update SDK Versions [skip ci]"
+          git push
+        else
+          echo "SDK 版本未更新"
+        fi
