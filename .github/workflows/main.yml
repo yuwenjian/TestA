@@ -20,10 +20,6 @@ jobs:
         # Your CI script commands here
         # For example, make the API request and extract values
         SDK_DATA=$(curl -s https://taptap.leanapp.cn/releases/find/version)
-        
-        # Print the API response for debugging
-        echo "API Response:"
-        echo "$SDK_DATA"
 
         TAPTAP_UNITY=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "unity") | .version')
         TAPTAP_IOS=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "ios") | .version')
