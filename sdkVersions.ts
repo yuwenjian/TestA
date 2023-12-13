@@ -1,5 +1,5 @@
 const taptapUnity = "3.26.5"
-const taptapIos= "fasdfasdfa"
+const taptapIos = "fasdfasdfa"
 const taptapAndroid = "3.24.1"
 const taptapUnreal = "3.25.1"
 
