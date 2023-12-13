@@ -37,9 +37,12 @@ jobs:
         sed -i "s/taptap: {[^}]*ios: \"[^\"]*\"/taptap: { ios: \"$IOS_VERSION\"/" sdkVersions.ts
         sed -i "s/taptap: {[^}]*android: \"[^\"]*\"/taptap: { android: \"$ANDROID_VERSION\"/" sdkVersions.ts
         sed -i "s/taptap: {[^}]*unreal: \"[^\"]*\"/taptap: { unreal: \"$UNREAL_VERSION\"/" sdkVersions.ts
-
+         
         git config --global user.email "740225978@qq.com"
         git config --global user.name "yuwenjian"
         git add -A
         git commit -m "Update SDK Versions [skip ci]"
         git push origin main
+
+    - name: Print sdkVersions.ts content
+      run: cat sdkVersions.ts
