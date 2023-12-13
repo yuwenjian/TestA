@@ -3,7 +3,7 @@ name: Update SDK Versions
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   update-sdk-versions:
@@ -13,15 +13,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
-        token: ${{ secrets.TOKEN_PAT }}     
+        token: ${{ secrets.TOKEN_PAT }}      
+
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '14'
-
-    - name: Install dependencies
-      run: npm install
 
     - name: Install dependencies
       run: npm install
@@ -41,9 +39,9 @@ jobs:
         sed -i "s/taptapIos: \"[^\"]*\"/taptapIos: \"$TAPTAP_IOS_VERSION\"/" sdkVersions.ts
         sed -i "s/taptapAndroid: \"[^\"]*\"/taptapAndroid: \"$TAPTAP_ANDROID_VERSION\"/" sdkVersions.ts
         sed -i "s/taptapUnreal: \"[^\"]*\"/taptapUnreal: \"$TAPTAP_UNREAL_VERSION\"/" sdkVersions.ts
-
+       
         git config --global user.email "740225978@qq.com"
         git config --global user.name "yuwenjian"
-        git add -A
-        git commit -m "同步 SDK 版本"
-        git push origin main
+        git add sdkVersions.ts
+        git commit -m "Update SDK Versions [skip ci]"
+        git push
