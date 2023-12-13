@@ -34,16 +34,16 @@ jobs:
         TAPTAP_ANDROID=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "android") | .version')
 
         # Check if the values are different before updating and committing
-        if [ "$TAPTAP_UNITY" != "$(grep -oP 'const taptapUnity = "\K[^"]*' src/docComponents/sdkVersions.ts)" ] || \
-          [ "$TAPTAP_IOS" != "$(grep -oP 'const taptapIos = "\K[^"]*' src/docComponents/sdkVersions.ts)" ] || \
-          [ "$TAPTAP_UE4" != "$(grep -oP 'const taptapUnreal = "\K[^"]*' src/docComponents/sdkVersions.ts)" ] || \
-          [ "$TAPTAP_ANDROID" != "$(grep -oP 'const taptapAndroid = "\K[^"]*' src/docComponents/sdkVersions.ts)" ]; then
+        if [ "$TAPTAP_UNITY" != "$(grep -oP 'const taptapUnity = "\K[^"]*' ./src/docComponents/sdkVersions.ts)" ] || \
+          [ "$TAPTAP_IOS" != "$(grep -oP 'const taptapIos = "\K[^"]*' ./src/docComponents/sdkVersions.ts)" ] || \
+          [ "$TAPTAP_UE4" != "$(grep -oP 'const taptapUnreal = "\K[^"]*' ./src/docComponents/sdkVersions.ts)" ] || \
+          [ "$TAPTAP_ANDROID" != "$(grep -oP 'const taptapAndroid = "\K[^"]*' ./src/docComponents/sdkVersions.ts)" ]; then
           
           # Update the SDK versions in your file
-          sed -i "s/const taptapUnity = \".*\"/const taptapUnity = \"$TAPTAP_UNITY\"/" src/docComponents/sdkVersions.ts
-          sed -i "s/const taptapIos = \".*\"/const taptapIos = \"$TAPTAP_IOS\"/" src/docComponents/sdkVersions.ts
-          sed -i "s/const taptapUnreal = \".*\"/const taptapUnreal = \"$TAPTAP_UE4\"/" src/docComponents/sdkVersions.ts
-          sed -i "s/const taptapAndroid = \".*\"/const taptapAndroid = \"$TAPTAP_ANDROID\"/" src/docComponents/sdkVersions.ts
+          sed -i "s/const taptapUnity = \".*\"/const taptapUnity = \"$TAPTAP_UNITY\"/" ./src/docComponents/sdkVersions.ts
+          sed -i "s/const taptapIos = \".*\"/const taptapIos = \"$TAPTAP_IOS\"/" ./src/docComponents/sdkVersions.ts
+          sed -i "s/const taptapUnreal = \".*\"/const taptapUnreal = \"$TAPTAP_UE4\"/" ./src/docComponents/sdkVersions.ts
+          sed -i "s/const taptapAndroid = \".*\"/const taptapAndroid = \"$TAPTAP_ANDROID\"/" ./src/docComponents/sdkVersions.ts
           
           echo "SDK 版本有更新"
 
