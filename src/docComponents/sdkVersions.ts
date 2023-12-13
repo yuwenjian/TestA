@@ -1,7 +1,7 @@
 const taptapUnity = "11111"
-const taptapIos = "3.23.1"
-const taptapAndroid = "3.24.1"
-const taptapUnreal = "3.25.1"
+const taptapIos = "22222"
+const taptapAndroid = "22222"
+const taptapUnreal = "222222"
 
 const sdkVersions = {
   taptap: {
@@ -27,8 +27,8 @@ const sdkVersions = {
     }
   },
   tapadn: {
-    unity: "11111",
-    android: "1111",
+    unity: "3.16.3.23",
+    android: "3.16.3.23",
   }
 };
 

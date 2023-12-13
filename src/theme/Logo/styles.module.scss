@@ -1,0 +1,31 @@
+@import "../../styles/font";
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+
+  .logoImage {
+    display: flex;
+
+    svg {
+      width: auto;
+      height: 100%;
+    }
+
+    &.reversed svg * {
+      fill: #fff;
+    }
+  }
+
+  .label {
+    @include tap-font-bold;
+    @include tap-font-16;
+    margin-left: 6px;
+    color: var(--tap-grey7);
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
