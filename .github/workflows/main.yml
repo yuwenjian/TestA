@@ -15,26 +15,26 @@ jobs:
       with:
         token: ${{ secrets.TOKEN_PAT }}      
 
-
     - name: Run CI Script
       run: |
         # Your CI script commands here
         # For example, make the API request and extract values
-        SDK_UNITY=$(curl -s https://taptap.leanapp.cn/releases/find/version | jq -r '.data[] | select(.sdkPlugName == "unity") | .version')
-        SDK_IOS=$(curl -s https://taptap.leanapp.cn/releases/find/version | jq -r '.data[] | select(.sdkPlugName == "ios") | .version')
-        SDK_ANDROID=$(curl -s https://taptap.leanapp.cn/releases/find/version | jq -r '.data[] | select(.sdkPlugName == "android") | .version')
-        SDK_UE4=$(curl -s https://taptap.leanapp.cn/releases/find/version | jq -r '.data[] | select(.sdkPlugName == "ue4") | .version')
+        SDK_DATA=$(curl -s https://taptap.leanapp.cn/releases/find/version)
+        TAPTAP_UNITY=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "unity") | .version')
+        TAPTAP_IOS=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "ios") | .version')
+        TAPTAP_UE4=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "ue4") | .version')
+        TAPTAP_ANDROID=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "android") | .version')
 
         # Update the SDK versions in your file
-        sed -i "s/const taptapUnity = \".*\"/const taptapUnity = \"$SDK_UNITY\"/" sdkVersions.ts
-        sed -i "s/const taptapIos = \".*\"/const taptapIos = \"$SDK_IOS\"/" sdkVersions.ts
-        sed -i "s/const taptapAndroid = \".*\"/const taptapAndroid = \"$SDK_ANDROID\"/" sdkVersions.ts
-        sed -i "s/const taptapUnreal = \".*\"/const taptapUnreal = \"$SDK_UE4\"/" sdkVersions.ts
+        sed -i "s/const taptapUnity = \".*\"/const taptapUnity = \"$TAPTAP_UNITY\"/" sdkVersions.ts
+        sed -i "s/const taptapIos = \".*\"/const taptapIos = \"$TAPTAP_IOS\"/" sdkVersions.ts
+        sed -i "s/const taptapUnreal = \".*\"/const taptapUnreal = \"$TAPTAP_UE4\"/" sdkVersions.ts
+        sed -i "s/const taptapAndroid = \".*\"/const taptapAndroid = \"$TAPTAP_ANDROID\"/" sdkVersions.ts
 
     - name: Commit and Push Changes
       run: |
         git config --global user.email "740225978@qq.com"
         git config --global user.name "yuwenjian"
-        git add -A
+        git add sdkVersions.ts
         git commit -m "Update SDK Versions [skip ci]"
         git push
