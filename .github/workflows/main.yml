@@ -3,7 +3,7 @@ name: Update SDK Versions
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   update-sdk-versions:
