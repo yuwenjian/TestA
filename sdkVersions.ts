@@ -1,7 +1,7 @@
 const taptapUnity = "3.26.5"
 const taptapIos= "fasdfasdfa"
 const taptapAndroid = "3.24.1"
-const taptapUnreal = ""
+const taptapUnreal = "3.25.1"
 
 const sdkVersions = {
   taptap: {
