@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '*/5 * * * *'  # 每隔5分钟运行一次
+    - cron: '0 10 * * *'  # 每隔5分钟运行一次
 
 jobs:
   update-sdk-versions:
