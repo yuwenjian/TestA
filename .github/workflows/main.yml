@@ -23,23 +23,24 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Update SDK Versions
+    - name: Set up jq
+      run: sudo apt-get install jq
+
+    - name: Request API and Update SDK Versions
       run: |
         API_URL="https://taptap.leanapp.cn/releases/find/version"
         RESPONSE=$(curl -s $API_URL)
-        
-        TAPTAP_UNITY_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "unity") | .version')
-        TAPTAP_IOS_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "ios") | .version')
-        TAPTAP_ANDROID_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "android") | .version')
-        TAPTAP_UNREAL_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "ue4") | .version')
 
-        # Update the variables in sdkVersions.ts file
-        sed -i "s/taptapUnity: \"[^\"]*\"/taptapUnity: \"$TAPTAP_UNITY_VERSION\"/" sdkVersions.ts
-        sed -i "s/taptapIos: \"[^\"]*\"/taptapIos: \"$TAPTAP_IOS_VERSION\"/" sdkVersions.ts
-        sed -i "s/taptapAndroid: \"[^\"]*\"/taptapAndroid: \"$TAPTAP_ANDROID_VERSION\"/" sdkVersions.ts
-        sed -i "s/taptapUnreal: \"[^\"]*\"/taptapUnreal: \"$TAPTAP_UNREAL_VERSION\"/" sdkVersions.ts
-        
-        cat sdkVersions.ts
+        UNITY_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "unity") | .version')
+        IOS_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "ios") | .version')
+        ANDROID_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "android") | .version')
+        UNREAL_VERSION=$(echo $RESPONSE | jq -r '.data[] | select(.sdkPlugName == "ue4") | .version')
+
+        # Update specific fields in sdkVersions.ts
+        sed -i "s/unity: \"[^\"]*\"/unity: \"$UNITY_VERSION\"/" sdkVersions.ts
+        sed -i "s/ios: \"[^\"]*\"/ios: \"$IOS_VERSION\"/" sdkVersions.ts
+        sed -i "s/android: \"[^\"]*\"/android: \"$ANDROID_VERSION\"/" sdkVersions.ts
+        sed -i "s/unreal: \"[^\"]*\"/unreal: \"$UNREAL_VERSION\"/" sdkVersions.ts
 
         git config --global user.email "740225978@qq.com"
         git config --global user.name "yuwenjian"
