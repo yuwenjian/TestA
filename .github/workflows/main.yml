@@ -25,6 +25,11 @@ jobs:
         TAPTAP_UE4=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "ue4") | .version')
         TAPTAP_ANDROID=$(echo "$SDK_DATA" | jq -r '.data[] | select(.sdkPlugName == "android") | .version')
 
+        echo "$TAPTAP_UNITY"
+        echo "$TAPTAP_IOS"
+        echo "$TAPTAP_UE4"
+        echo "$TAPTAP_ANDROID"
+
         # Update the SDK versions in your file
         sed -i "s/const taptapUnity = \".*\"/const taptapUnity = \"$TAPTAP_UNITY\"/" sdkVersions.ts
         sed -i "s/const taptapIos = \".*\"/const taptapIos = \"$TAPTAP_IOS\"/" sdkVersions.ts
