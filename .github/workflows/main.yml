@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 12 * * *'  # 每天 12 点
+    - cron: '*/5 * * * *'  # 每天 12 点
 
 jobs:
   update-sdk-versions:
