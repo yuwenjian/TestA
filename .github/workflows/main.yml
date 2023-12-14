@@ -50,6 +50,8 @@ jobs:
           # Commit and push changes
           # git config --global user.email "740225978@qq.com"
           # git config --global user.name "yuwenjian"  
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
           git add -A
           git commit -m "Update SDK Versions [skip ci]"
           git push
