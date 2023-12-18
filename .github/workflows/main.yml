@@ -17,12 +17,6 @@ jobs:
       with:
         token: ${{ secrets.TOKEN_PAT }}    
 
-    - name: BBBBB
-      run: |
-        SDK_DATA=$(curl -s https://taptap.leanapp.cn/releases/find/version)
-
-        echo "$SDK_DATA"
-
     - name: Run CI Script
       if: github.event_name == 'schedule'
       run: |
@@ -60,3 +54,10 @@ jobs:
         else
           echo "SDK 版本未更新"
         fi
+        
+    - name: BBBBB
+      run: |
+        SDK_DATA=$(curl -s https://taptap.leanapp.cn/releases/find/version)
+  
+        echo "$SDK_DATA"
+  
